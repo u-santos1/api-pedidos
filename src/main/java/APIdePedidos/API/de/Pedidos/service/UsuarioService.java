@@ -4,6 +4,7 @@ import APIdePedidos.API.de.Pedidos.dto.PedidoDTO;
 import APIdePedidos.API.de.Pedidos.dto.UsuarioComPedidosDTO;
 import APIdePedidos.API.de.Pedidos.dto.UsuarioDTO;
 import APIdePedidos.API.de.Pedidos.dto.UsuarioRequest;
+import APIdePedidos.API.de.Pedidos.infra.EmailJaCadastradoException;
 import APIdePedidos.API.de.Pedidos.model.Usuario;
 import APIdePedidos.API.de.Pedidos.repository.PedidoRepository;
 import APIdePedidos.API.de.Pedidos.repository.UsuarioRepository;
