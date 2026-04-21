@@ -1,6 +1,8 @@
 package APIdePedidos.API.de.Pedidos.service;
 
+import APIdePedidos.API.de.Pedidos.dto.ItemPedidoDTO;
 import APIdePedidos.API.de.Pedidos.dto.PedidoDTO;
+import APIdePedidos.API.de.Pedidos.dto.PrecoPopularDTO;
 import APIdePedidos.API.de.Pedidos.dto.UsuarioDTO;
 import APIdePedidos.API.de.Pedidos.infra.PedidoNaoEncotradoException;
 import APIdePedidos.API.de.Pedidos.model.Pedido;
@@ -14,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +63,13 @@ public class PedidoService {
                 .orElseThrow(()-> new PedidoNaoEncotradoException("Pedido nao encontrado"));
         return PedidoDTO.dto(pedido);
     }
+    public List<PrecoPopularDTO> listarPrecoPopulares(){
+        List<Object[]> resultados = pedidoRepository.buscarPrecoPopulares();
 
-
+        return resultados.stream()
+                .map(res -> new PrecoPopularDTO(
+                        (BigDecimal) res[0], // Preço
+                        (Long) res[1]        // Quantidade (COUNT)
+                )).toList();
+    }
 }

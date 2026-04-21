@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -30,5 +31,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     @Query("SELECT DISTINCT p FROM Pedido p LEFT JOIN FETCH p.itens WHERE p.id = :id")
     Optional<Pedido> listarDePedido(@Param("id")Long pedidoId);
 
-
+    @Query(
+            "SELECT p.preco, COUNT(p) FROM ItemPedido p GROUP BY p.preco HAVING COUNT(p) > 100"
+    )
+    List<Object[]> buscarPrecoPopulares();
 }
